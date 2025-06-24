@@ -1,0 +1,10 @@
+[LOG 2025-06-24T07:59:49.024Z] ⏳ Démarrage du script de scraping...
+[LOG 2025-06-24T07:59:49.527Z] ✅ Test de connexion Supabase réussi !
+[LOG 2025-06-24T07:59:49.527Z] 🔗 Connexion Supabase OK.
+[LOG 2025-06-24T07:59:49.528Z] 🔎 2 URL(s) à traiter.
+[LOG 2025-06-24T07:59:49.529Z] ➡️  Vérification de l'article : https://htmhell.dev/adventcalendar/2024/29/
+[LOG 2025-06-24T07:59:49.530Z] ➡️  Vérification de l'article : https://darice.org/2025/06/18/css-day-congress-a-short-look-back/
+[LOG 2025-06-24T07:59:49.654Z] ⏭️ Article déjà présent : https://darice.org/2025/06/18/css-day-congress-a-short-look-back/
+[LOG 2025-06-24T07:59:49.748Z] ⏭️ Article déjà présent : https://htmhell.dev/adventcalendar/2024/29/
+[LOG 2025-06-24T07:59:49.748Z] 📦 0 article(s) à insérer dans la base.
+[LOG 2025-06-24T07:59:49.748Z] ✅ Script terminé.
