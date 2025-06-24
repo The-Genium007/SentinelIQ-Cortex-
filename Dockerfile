@@ -21,8 +21,10 @@ RUN apk add --no-cache curl\
 
 ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 
+ENV PORT=3000
+
 HEALTHCHECK --interval=10s --timeout=3s --start-period=5s --retries=3 \
-    CMD curl --fail http://localhost:3000 || exit 1
+    CMD curl --fail http://localhost:3000/ || exit 1
 
 WORKDIR /app
 
