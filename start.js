@@ -1,6 +1,14 @@
 import { writeFileSync, appendFileSync } from "fs";
 import { launch } from './scrapArticles.js';
 
+// Démarrage d'un serveur HTTP minimal pour le healthcheck Coolify
+import http from 'http';
+http.createServer((req, res) => {
+    res.writeHead(200);
+    res.end('OK');
+}).listen(process.env.PORT || 3000);
+
+
 // Fonction pour logger dans un fichier
 function logToFile(message) {
     const timestamp = new Date().toISOString();
