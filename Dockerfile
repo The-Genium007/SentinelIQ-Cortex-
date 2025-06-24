@@ -2,7 +2,8 @@
 FROM node:18-alpine
 
 # Dépendances système requises pour Chromium
-RUN apk add --no-cache curl\
+RUN apk add --no-cache \
+    curl \
     chromium \
     nss \
     freetype \
@@ -13,9 +14,10 @@ RUN apk add --no-cache curl\
     yarn \
     udev \
     bash \
-    dumb-init \
-    && apk add --no-cache --virtual .build-deps \
-    curl python3 make g++ \
+    dumb-init
+
+RUN apk add --no-cache --virtual .build-deps \
+    python3 make g++ \
     && yarn global add puppeteer \
     && apk del .build-deps
 
