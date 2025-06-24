@@ -2,7 +2,7 @@
 FROM node:18-alpine
 
 # Dépendances système requises pour Chromium
-RUN apk add --no-cache \
+RUN apk add --no-cache curl\
     chromium \
     nss \
     freetype \
@@ -20,6 +20,9 @@ RUN apk add --no-cache \
     && apk del .build-deps
 
 ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
+
+HEALTHCHECK --interval=10s --timeout=3s --start-period=5s --retries=3 \
+    CMD curl --fail http://localhost:3000 || exit 1
 
 WORKDIR /app
 
