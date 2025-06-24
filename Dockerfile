@@ -34,4 +34,6 @@ COPY package*.json ./
 RUN yarn install --production
 COPY . .
 
-CMD ["node", "scrapArticles.js"]
+EXPOSE 3000
+
+CMD ["node", "start.js"]
