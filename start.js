@@ -1,14 +1,6 @@
 import { writeFileSync, appendFileSync } from "fs";
 import { launch } from './scrapArticles.js';
 
-// Démarrage d'un serveur HTTP minimal pour le healthcheck Coolify
-import http from 'http';
-http.createServer((req, res) => {
-    res.writeHead(200);
-    res.end('OK');
-}).listen(process.env.PORT || 3000);
-
-
 // Fonction pour logger dans un fichier
 function logToFile(message) {
     const timestamp = new Date().toISOString();
@@ -20,6 +12,10 @@ const server = Bun.serve({
     port: 3000,
     fetch(req) {
         const url = new URL(req.url);
+
+        if (req.method === "GET" && url.pathname === "/") {
+            return new Response("OK", { status: 200 });
+        }
 
         if (req.method === "POST" && url.pathname === "/webhook") {
             return req.json().then((body) => {
