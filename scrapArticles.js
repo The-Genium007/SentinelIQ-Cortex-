@@ -20,8 +20,8 @@ console.error = (...args) => {
 };
 
 // Fonction principale auto-exécutée (IIFE) asynchrone
-(async () => {
-    console.log('⏳ Démarrage du script de scraping...');
+export async function launch(playload) {
+    console.log('⏳ Démarrage du script de scraping...', playload);
     // Test de la connexion à Supabase
     const isConnected = await testSupabaseConnection();
     if (!isConnected) {
@@ -77,7 +77,7 @@ console.error = (...args) => {
     }
     console.log('✅ Script terminé.');
 
-})();
+};
 
 /**
  * Fonction pour extraire le contenu d'un article web
