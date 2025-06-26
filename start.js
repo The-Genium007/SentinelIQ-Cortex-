@@ -2,10 +2,14 @@ import { writeFileSync, appendFileSync } from "fs";
 import { launch } from './scrapArticles.js';
 import http from "http";
 
+import dotenv from 'dotenv';
+// Chargement des variables d'environnement depuis le fichier key.env
+dotenv.config({ path: './key.env' });
+
 // Fonction pour logger dans un fichier
 function logToFile(message) {
     const timestamp = new Date().toISOString();
-    appendFileSync("server.log", `[${timestamp}] ${message}\n`);
+    appendFileSync("scrap.log", `[${timestamp}] ${message}\n`);
 }
 
 // Serveur HTTP Node.js natif
@@ -19,6 +23,16 @@ const server = http.createServer(async (req, res) => {
     }
 
     if (req.method === "POST" && url.pathname === "/webhook") {
+        // Vérification du token d'authentification
+        const authHeader = req.headers['authorization'];
+        const SECRET_TOKEN = process.env.WEBHOOK_TOKEN;
+        if (!authHeader || !authHeader.startsWith('Bearer ') || authHeader.split(' ')[1] !== SECRET_TOKEN) {
+            const authMsg = '⛔ Accès refusé : token manquant ou invalide';
+            logToFile(authMsg);
+            res.writeHead(401, { "Content-Type": "text/plain" });
+            res.end(authMsg);
+            return;
+        }
         let body = "";
         req.on("data", chunk => { body += chunk; });
         req.on("end", async () => {
@@ -45,7 +59,9 @@ const server = http.createServer(async (req, res) => {
     res.end(notFoundMsg);
 });
 
-const PORT = process.env.PORT || 8000;
+
+//health checker
+const PORT = 3000;
 server.listen(PORT, () => {
     const msg = `🚀 Serveur en écoute sur http://localhost:${PORT}`;
     console.log(msg);
